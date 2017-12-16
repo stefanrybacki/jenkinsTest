@@ -6,20 +6,23 @@ RUN set -e && \
     apt-get install -y zip unzip curl debconf-utils
 
 # install SDK
-RUN curl -s "https://get.sdkman.io" | bash && echo "source ~/.bashrc" >> ~/.bash_profile && \
-    cat ~/.bash_profile
-RUN sdk --version
+RUN curl -s "https://get.sdkman.io" | bash
+RUN source ~/.bashrc && \
+    sdk --version
 
 #install java
-RUN sdk install java 8u152-zulu && \
+RUN source ~/.bashrc && \
+    sdk install java 8u152-zulu && \
     java -version
 
 #install gradle
-RUN sdk install gradle 2.12 && \
+RUN source ~/.bashrc && \
+    sdk install gradle 2.12 && \
     gradle -v
 
 #install node
-RUN curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
+RUN source ~/.bashrc && \
+    curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
     apt-get install -y nodejs && \
     node -v && \
     npm -v

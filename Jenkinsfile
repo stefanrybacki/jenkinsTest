@@ -18,11 +18,17 @@ pipeline {
     stage('Build') {
       steps {
         sh '''#!/bin/bash
-gradle clean'''
-        dir(path: 'varvis') {
+			source ~/.bashrc
+			gradle clean
+		'''
+        
+		dir(path: 'varvis') {
           sh '''#!/bin/bash
-gradle :varvis:generateTypeScript'''
-          timeout(time: 40, unit: 'MINUTES') {
+			source ~/.bashrc
+			gradle :varvis:generateTypeScript
+		  '''
+          
+		  timeout(time: 40, unit: 'MINUTES') {
             sh 'npm install'
           }
           
