@@ -10,8 +10,7 @@ pipeline {
       steps {
         sh '''#!/bin/bash
 			source ~/.bashrc
-			java -version
-			gradle -v
+			./tasks/scripts/describe-buildenv.sh
 		'''
       }
     }
@@ -21,7 +20,7 @@ pipeline {
 			source ~/.bashrc
 			gradle clean
 		'''
-        
+
 		dir(path: 'varvis') {
           sh '''#!/bin/bash
 			source ~/.bashrc
@@ -37,8 +36,20 @@ pipeline {
           }
           
         }
-        
-      }
+
+		dir(path: 'tasks/scripts') {
+			sh '''#!/bin/bash
+				source ~/.bashrc
+				./generate_html_manuals.sh
+			'''
+		}
+
+		sh '''#!/bin/bash
+			source ~/.bashrc
+			gradle -x test build
+		'''
+		
+	  }
     }
   }
 }
