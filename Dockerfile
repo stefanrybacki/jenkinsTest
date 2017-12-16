@@ -6,9 +6,10 @@ RUN set -e && \
     apt-get install -y zip unzip curl debconf-utils
 
 # install SDK
-RUN curl -s "https://get.sdkman.io" | bash && \
-    source "$HOME/.sdkman/bin/sdkman-init.sh" && \
-    sdk --version
+RUN curl -s "https://get.sdkman.io" | bash
+
+SHELL ["/bin/bash", "-c", "source '$HOME/.sdkman/bin/sdkman-init.sh'"]
+RUN sdk --version
 
 #install java
 RUN sdk install java 8u152-zulu && \
