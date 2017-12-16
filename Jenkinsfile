@@ -24,6 +24,7 @@ node {
 		apt-get install -y nodejs
 		node -v
 		npm -v
+		"""
     }
 }
 
