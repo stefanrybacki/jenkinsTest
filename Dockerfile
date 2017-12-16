@@ -1,8 +1,8 @@
+FROM postgres
+
 ENV POSTGRES_PASSWORD=postgres
 #ENV PG_MAJOR=
 #ENV PG_VERSION=
-
-FROM postgres
 
 SHELL ["/bin/bash", "-c", "source ~/.bashrc; "] 
 
