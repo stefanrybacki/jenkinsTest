@@ -3,7 +3,7 @@ SHELL ["/bin/bash", "-c"]
 
 RUN set -e && \
     apt-get update && \
-    apt-get install -y zip unzip curl debconf-utils source
+    apt-get install -y zip unzip curl debconf-utils
 
 # install SDK
 RUN curl -s "https://get.sdkman.io" | bash && \
