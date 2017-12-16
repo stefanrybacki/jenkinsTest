@@ -7,8 +7,6 @@ RUN set -e && \
 
 # install SDK
 RUN curl -s "https://get.sdkman.io" | bash
-
-SHELL ["/bin/bash", "-c", "source '$HOME/.sdkman/bin/sdkman-init.sh'"]
 RUN sdk --version
 
 #install java
