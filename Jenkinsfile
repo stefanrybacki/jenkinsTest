@@ -1,6 +1,8 @@
 node {
 	label 'lvms'
 	docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
+		sh 'apt-get install -y zip unzip'
+		
 		/* install sdk */
 		sh 'curl -s "https://get.sdkman.io" | bash'
 		sh 'source "$HOME/.sdkman/bin/sdkman-init.sh"'
