@@ -39,7 +39,12 @@ pipeline {
   stages {
     stage('Describe Environment') {
       steps {
-        echo 'Hello World'
+        sh """
+			java -version
+			gradle -v
+			node -v
+			npm -v
+		"""
       }
     }
   }
