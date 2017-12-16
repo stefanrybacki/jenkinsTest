@@ -7,14 +7,17 @@ RUN set -e && \
 
 # install SDK
 RUN curl -s "https://get.sdkman.io" | bash && echo Installed
-RUN sdk --version
+RUN source ~/.bashrc && \
+    sdk --version
 
 #install java
-RUN sdk install java 8u152-zulu && \
+RUN source ~/.bashrc && \
+    sdk install java 8u152-zulu && \
     java -version
 
 #install gradle
-RUN sdk install gradle 2.12 && \
+RUN source ~/.bashrc && \
+    sdk install gradle 2.12 && \
     gradle -v
 
 #install node
