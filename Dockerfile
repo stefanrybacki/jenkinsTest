@@ -6,7 +6,7 @@ RUN set -e && \
     apt-get install -y zip unzip curl debconf-utils
 
 # install SDK
-RUN curl -s "https://get.sdkman.io" | bash
+RUN curl -s "https://get.sdkman.io" | bash && echo Installed
 RUN sdk --version
 
 #install java
