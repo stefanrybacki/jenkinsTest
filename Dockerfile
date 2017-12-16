@@ -25,5 +25,4 @@ RUN source ~/.bashrc && \
     curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
     apt-get install -y nodejs && \
     node -v && \
-    npm -v && \
-
+    npm -v
