@@ -4,8 +4,7 @@ node {
 	  docker.image('postgres').inside("--link ${c.id}:db") {
 		sh """#!/bin/bash
 		set -e
-		find /
-		apt-get install -y zip unzip
+		apt-get update && apt-get install -y zip unzip
 		
 		#install sdk
 		curl -s "https://get.sdkman.io" | bash
