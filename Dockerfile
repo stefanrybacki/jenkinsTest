@@ -7,9 +7,9 @@ RUN set -e && \
 
 # install SDK
 RUN curl -s "https://get.sdkman.io" | bash
-SHELL ["/bin/bash", "--rcfile", "~/.bashrc", "-c"] 
 
-RUN sdk --version
+RUN source ~/.bashrc && \
+    sdk --version
 
 #install java
 RUN source ~/.bashrc && \
