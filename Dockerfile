@@ -13,13 +13,11 @@ RUN source ~/.bashrc && \
 #install java
 RUN source ~/.bashrc && \
     sdk install java 8u152-zulu && \
-    which java && \
     java -version
 
 #install gradle
 RUN source ~/.bashrc && \
     sdk install gradle 2.12 && \
-    which gradle && \
     gradle -v
 
 #install node

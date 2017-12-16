@@ -5,9 +5,10 @@ pipeline {
   stages {
     stage('Describe Environment') {
       steps {
-        sh """
-			gradle -v
+        sh """#!/bin/bash
+			source ~/.bashrc
 			java -version
+			gradle -v
 		"""
       }
     }
