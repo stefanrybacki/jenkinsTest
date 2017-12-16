@@ -2,7 +2,7 @@ node {
 	label 'lvms'
 	docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
 		sh 'id'
-		sh 'apt-get install -y zip unzip'
+		sh '/usr/bin/apt-get install -y zip unzip'
 		
 		/* install sdk */
 		sh 'curl -s "https://get.sdkman.io" | bash'
@@ -19,7 +19,7 @@ node {
 		
 		/* install node */
 		sh 'curl -sL https://deb.nodesource.com/setup_8.x | bash'
-		sh 'apt-get install -y nodejs'
+		sh '/usr/bin/apt-get install -y nodejs'
 		sh 'node -v'
 		sh 'npm -v'
     }
