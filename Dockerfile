@@ -1,5 +1,10 @@
+ENV POSTGRES_PASSWORD=postgres
+#ENV PG_MAJOR=
+#ENV PG_VERSION=
+
 FROM postgres
-SHELL ["/bin/bash", "-c"] 
+
+SHELL ["/bin/bash", "-c", "source ~/.bashrc; "] 
 
 RUN set -e && \
     apt-get update && \
@@ -8,22 +13,18 @@ RUN set -e && \
 # install SDK
 RUN curl -s "https://get.sdkman.io" | bash
 
-RUN source ~/.bashrc && \
-    sdk --version
+RUN sdk --version
 
 #install java
-RUN source ~/.bashrc && \
-    sdk install java 8u152-zulu && \
+RUN sdk install java 8u152-zulu && \
     java -version
 
 #install gradle
-RUN source ~/.bashrc && \
-    sdk install gradle 2.12 && \
+RUN sdk install gradle 2.12 && \
     gradle -v
 
 #install node
-RUN source ~/.bashrc && \
-    curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
+RUN curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
     apt-get install -y nodejs && \
     node -v && \
     npm -v
