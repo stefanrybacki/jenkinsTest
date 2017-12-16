@@ -1,6 +1,7 @@
 node {
 	label 'lvms'
 	docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
+		sh 'id'
 		sh 'apt-get install -y zip unzip'
 		
 		/* install sdk */
