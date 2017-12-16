@@ -4,7 +4,7 @@ node {
 	  docker.image('postgres').inside("--link ${c.id}:db") {
 		sh """#!/bin/bash
 		set -e
-		apt-get update && apt-get install -y zip unzip curl debconf-utils python-software-properties
+		apt-get update && apt-get install -y zip unzip curl debconf-utils
 		
 		#install sdk
 		curl -s "https://get.sdkman.io" | bash
