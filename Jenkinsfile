@@ -1,6 +1,7 @@
 node {
 	label 'lvms'
 	docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
+	  docker.image('postgres').inside("--link ${c.id}:db") {
 		sh """#!/bin/bash
 		set -e
 		find /
@@ -24,7 +25,8 @@ node {
 		apt-get install -y nodejs
 		node -v
 		npm -v
-		"""
+		""")
+	  }
     }
 }
 
