@@ -12,7 +12,7 @@ node {
 		sdk --version
 
 		#install java
-		echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
+		echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
 		sdk install java 8u151-oracle
 		java -v
 		
