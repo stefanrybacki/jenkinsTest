@@ -1,10 +1,11 @@
 pipeline {
   agent {
 	node {
+		label 'lvms'
 		docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"').inside {
 			sh """#!/bin/bash
 			set -e
-			apt-get update && apt-get install -y zip unzip curl debconf-utils
+			apt-get update && apt-get install -y zip unzip curl debconf-utils git
 			
 			#install sdk
 			curl -s "https://get.sdkman.io" | bash
@@ -36,6 +37,7 @@ pipeline {
 			gradle -v
 			node -v
 			npm -v
+			ls
 		"""
       }
     }
