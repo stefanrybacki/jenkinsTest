@@ -4,7 +4,7 @@ node {
 	  docker.image('postgres').inside("--link ${c.id}:db") {
 		sh """#!/bin/bash
 		set -e
-		apt-get update && apt-get install -y zip unzip curl 
+		apt-get update && apt-get install -y zip unzip curl debconf-utils python-software-properties
 		
 		#install sdk
 		curl -s "https://get.sdkman.io" | bash
@@ -12,6 +12,7 @@ node {
 		sdk --version
 
 		#install java
+		echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
 		sdk install java 8u151-oracle
 		java -v
 		
