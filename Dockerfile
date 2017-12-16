@@ -1,4 +1,5 @@
 FROM postgres
+SHELL ["/bin/bash", "-c"] 
 
 RUN set -e && \
     apt-get update && \
