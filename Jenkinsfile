@@ -12,7 +12,7 @@ node {
 		sdk --version
 
 		#install java
-		sdk install java 8u151-zulu
+		sdk install java
 		java -v
 		
 		#install gradle
