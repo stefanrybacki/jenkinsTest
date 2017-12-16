@@ -1,16 +1,23 @@
 node {
 	label 'lvms'
-	docker.image('mysql:5').withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw"') { c ->
-        docker.image('mysql:5').inside("--link ${c.id}:db") {
+	docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
+        docker.image('postgres').inside("--link ${c.id}:db") {
             /* Wait until mysql service is up */
-            sh 'while ! mysqladmin ping -hdb --silent; do sleep 1; done'
-        }
-        docker.image('centos:7').inside("--link ${c.id}:db") {
-            /*
-             * Run some tests which require MySQL, and assume that it is
-             * available on the host name `db`
-             */
-            sh 'make check'
+			/* TODO */
+		}
+        docker.image('debian:stretch').inside("--link ${c.id}:db") {
+            /* install sdk */
+			curl -s "https://get.sdkman.io" | bash
+			source "$HOME/.sdkman/bin/sdkman-init.sh"
+			sdk --version
+
+			/* install java */
+			sdk install java 8u151-oracle
+			java -v
+			
+			/* install gradle */
+			sdk install gradle 2.12
+			gradle -v
         }
     }
 }
