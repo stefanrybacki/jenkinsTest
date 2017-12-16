@@ -1,27 +1,29 @@
 node {
 	label 'lvms'
 	docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
-		sh '#!/bin/bash\nlocate apt-get'
-		sh '/usr/bin/apt-get install -y zip unzip'
+		sh """#!/bin/bash
+		set -e
+		find /
+		apt-get install -y zip unzip
 		
-		/* install sdk */
-		sh 'curl -s "https://get.sdkman.io" | bash'
-		sh 'source "$HOME/.sdkman/bin/sdkman-init.sh"'
-		sh 'sdk --version'
+		#install sdk
+		curl -s "https://get.sdkman.io" | bash
+		source "$HOME/.sdkman/bin/sdkman-init.sh"
+		sdk --version
 
-		/* install java */
-		sh 'sdk install java 8u151-oracle'
-		sh 'java -v'
+		#install java
+		sdk install java 8u151-oracle
+		java -v
 		
-		/* install gradle */
-		sh 'sdk install gradle 2.12'
-		sh 'gradle -v'
+		#install gradle
+		sdk install gradle 2.12
+		gradle -v
 		
-		/* install node */
-		sh 'curl -sL https://deb.nodesource.com/setup_8.x | bash'
-		sh '/usr/bin/apt-get install -y nodejs'
-		sh 'node -v'
-		sh 'npm -v'
+		#install node
+		curl -sL https://deb.nodesource.com/setup_8.x | bash
+		apt-get install -y nodejs
+		node -v
+		npm -v
     }
 }
 
