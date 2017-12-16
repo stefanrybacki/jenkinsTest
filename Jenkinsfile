@@ -7,17 +7,17 @@ node {
 		}
         docker.image('debian:stretch').inside("--link ${c.id}:db") {
             /* install sdk */
-			curl -s "https://get.sdkman.io" | bash
-			source "$HOME/.sdkman/bin/sdkman-init.sh"
-			sdk --version
+			sh 'curl -s "https://get.sdkman.io" | bash'
+			sh 'source "$HOME/.sdkman/bin/sdkman-init.sh"'
+			sh 'sdk --version'
 
 			/* install java */
-			sdk install java 8u151-oracle
-			java -v
+			sh 'sdk install java 8u151-oracle'
+			sh 'java -v'
 			
 			/* install gradle */
-			sdk install gradle 2.12
-			gradle -v
+			sh 'sdk install gradle 2.12'
+			sh 'gradle -v'
         }
     }
 }
