@@ -21,7 +21,8 @@ RUN source ~/.bashrc && \
     gradle -v
 
 #install node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && \
+RUN source ~/.bashrc && \
+    curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
     apt-get install -y nodejs && \
     node -v && \
     npm -v && \
