@@ -6,11 +6,14 @@ pipeline {
     stage('Describe Environment') {
       steps {
         sh """
-			java -version
-			gradle -v
+		    echo $PATH
+			ls -la
 			node -v
 			npm -v
-			ls
+			locate java
+			locate gradle
+			java -version
+			gradle -v
 		"""
       }
     }
