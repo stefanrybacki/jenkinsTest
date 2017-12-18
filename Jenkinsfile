@@ -16,6 +16,7 @@ pipeline {
     stage('Describe Environment') {
       steps {
         sh '''
+            ls -la
 	    ./awsInit.sh
 	'''
       }
