@@ -100,3 +100,5 @@ USER ci
 RUN echo "sonar.jdbc.username=sonar" > /home/ci/.gradle/gradle.properties && \
     echo "sonar.jdbc.password=$SONAR_PASSWORD"
 USER root
+
+RUN echo $SONAR_PASSWORD && echo $POSTGRES_PASSWORD

@@ -19,6 +19,7 @@ pipeline {
 		env
 		echo xyz: $AWS_SECRET_KEY
 		echo zyx: ${env.AWS_SECRET_KEY}
+		cat ~/.aws/credentials
 		'''
       }
     }
