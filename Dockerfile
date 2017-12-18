@@ -30,7 +30,7 @@ RUN /etc/init.d/postgresql start &&\
     createdb -O ci lvmtest
 
 USER root
-RUN PGPASSWORD=$POSTGRES_PASSWORD psql -h 127.0.0.1 -U ci -d lvmtest -c "SELECT 'Connection to postgreSQL successful'"
+#RUN PGPASSWORD=$POSTGRES_PASSWORD psql -h 127.0.0.1 -U ci -d lvmtest -c "SELECT 'Connection to postgreSQL successful'"
 
 
 # install EC2 API Tools
