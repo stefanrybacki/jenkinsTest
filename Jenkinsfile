@@ -15,11 +15,7 @@ pipeline {
   stages {
     stage('Describe Environment') {
       steps {
-        sh '''#!/bin/bash
-		env
-		echo xyz: "${env.AWS_SECRET_ACCES_KEY}"
-		id
-		'''
+        sh "echo xyz: ${AWS_SECRET_ACCES_KEY}"
       }
     }
   }    
