@@ -1,9 +1,11 @@
 #!/bin/bash
-echo $AWS_ACCESS_KEY_ID
-echo $AWS_SECRET_ACCESS_KEY
+set -e
+aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY 
+aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID 
+aws configure set default.region eu-west-1 
+aws configure set default.output json 
 
-gradle -v
-java -version
-npm -v
-node -v
+# check aws
+aws s3 ls s3://roland-develop-limbus-medtec-test-filebucket
+
 
