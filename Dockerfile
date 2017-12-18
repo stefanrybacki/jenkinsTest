@@ -73,7 +73,7 @@ RUN apt-get install -y xvfb && \
     echo "WantedBy=multi-user.target" >> /etc/systemd/system/xvfb.service 
     
 RUN systemctl enable /etc/systemd/system/xvfb.service
-RUN /etc/init.d/xvfb start
+#RUN /etc/init.d/xvfb start
 
 # install awscli    
 RUN apt-get install -y awscli
