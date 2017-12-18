@@ -24,7 +24,7 @@ pipeline {
 
     stage('Not dev branch') {
       when{
-          expression { $GIT_BRANCH.contains('dev') }
+          expression { $GIT_BRANCH.contains('jenkins') }
       }
       steps {
         sh '''
