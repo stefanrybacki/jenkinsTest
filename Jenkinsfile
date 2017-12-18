@@ -17,9 +17,8 @@ pipeline {
       steps {
         sh '''#!/bin/bash
 		env
-		echo xyz: $AWS_SECRET_KEY
-		echo zyx: ${env.AWS_SECRET_KEY}
-		cat ~/.aws/credentials
+		echo xyz: $AWS_SECRET_ACCES_KEY
+		id
 		'''
       }
     }

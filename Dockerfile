@@ -84,14 +84,6 @@ RUN apt-get install -y tabix=1.2.1-2ubuntu1 samtools=0.1.19-1ubuntu1 vcftools=0.
 # install pandoc and imagemagick
 RUN apt-get install -y pandoc imagemagick
 
-# configure aws
-RUN aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
-    aws configure set aws_access_key_id $AWS_ACCESS_KEY && \
-    aws configure set default.region eu-west-1 && \
-    aws configure set default.output json 
-# && \
-#    aws s3 ls s3://roland-develop-limbus-medtec-test-filebucket
-
 # create ci user and configure gradle
 RUN useradd -m ci
 
@@ -99,7 +91,15 @@ RUN useradd -m ci
 USER ci
 RUN mkdir -p /home/ci/.gradle && \
     echo "sonar.jdbc.username=sonar" > /home/ci/.gradle/gradle.properties && \
-    echo "sonar.jdbc.password=$SONAR_PASSWORD" && \
-    cat /home/ci/.gradle/gradle.properties
-USER root
+    echo "sonar.jdbc.password=$SONAR_PASSWORD"
+
+# configure aws
+USER ci
+RUN aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
+    aws configure set aws_access_key_id $AWS_ACCESS_KEY && \
+    aws configure set default.region eu-west-1 && \
+    aws configure set default.output json 
+# && \
+#    aws s3 ls s3://roland-develop-limbus-medtec-test-filebucket
+
 
