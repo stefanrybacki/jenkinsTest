@@ -1,55 +1,26 @@
 pipeline {
+  environment {
+    AWS_ID = credentials("AWS_ID")
+    AWS_ACCESS_KEY_ID = "${env.AWS_ID_USR}"
+    AWS_SECRET_ACCESS_KEY = "${env.AWS_ID_PSW}"
+  }
+  
   agent {
     dockerfile {
       dir '.'
+      additionalBuildArgs '--force-rm --build-arg AWS_SECRET_KEY=12345 AWS_ACCESS_KEY=12345'
     }
-    
   }
+
   stages {
     stage('Describe Environment') {
       steps {
         sh '''#!/bin/bash
-			source ~/.bashrc
-			./tasks/scripts/describe-buildenv.sh
+		env
+		echo xyz: $AWS_SECRET_KEY
+		echo zyx: ${env.AWS_SECRET_KEY}
 		'''
       }
     }
-    stage('Build') {
-      steps {
-        sh '''#!/bin/bash
-			source ~/.bashrc
-			gradle clean
-		'''
-
-		dir(path: 'varvis') {
-          sh '''#!/bin/bash
-			source ~/.bashrc
-			gradle :varvis:generateTypeScript
-		  '''
-          
-		  timeout(time: 40, unit: 'MINUTES') {
-            sh 'npm install'
-          }
-          
-          timeout(time: 40, unit: 'MINUTES') {
-            sh 'npm run build'
-          }
-          
-        }
-
-		dir(path: 'tasks/scripts') {
-			sh '''#!/bin/bash
-				source ~/.bashrc
-				./generate_html_manuals.sh
-			'''
-		}
-
-		sh '''#!/bin/bash
-			source ~/.bashrc
-			gradle -x test build
-		'''
-		
-	  }
-    }
-  }
+  }    
 }
