@@ -9,6 +9,7 @@ ARG AWS_ACCESS_KEY=12345
 ENV LVMS_DATABASE_USERNAME=ci
 ENV LVMS_DATABASE_PASSWORD=$POSTGRES_PASSWORD 
 ENV DISPLAY=:99
+ENV PATH="/opt/gradle/gradle-2.12/bin:${PATH}"
 
 USER root
 SHELL ["/bin/bash", "-c"] 
@@ -46,9 +47,7 @@ RUN apt-get install -y openjdk-8-jdk && \
 RUN wget https://services.gradle.org/distributions/gradle-2.12-bin.zip && \
     mkdir /opt/gradle && \
     unzip gradle-2.12-bin.zip -d /opt/gradle && \
-    export PATH=$PATH:/opt/gradle/gradle-2.12/bin && \
-    gradle -v && \
-    echo "export PATH=$PATH:/opt/gradle/gradle-2.12/bin" >> /etc/.profile 
+    gradle -v 
 
 # install node
 RUN curl -s "https://deb.nodesource.com/setup_8.x" | bash && \
