@@ -8,7 +8,7 @@ pipeline {
   agent {
     dockerfile {
       dir '.'
-      additionalBuildArgs '--force-rm --build-arg AWS_SECRET_KEY=${AWS_SECRET_ACCESS_KEY} AWS_ACCESS_KEY=${env.AWS_ACCESS_KEY_ID}'
+      additionalBuildArgs '--force-rm --build-arg AWS_SECRET_KEY=$AWS_SECRET_ACCESS_KEY AWS_ACCESS_KEY=${env.AWS_ACCESS_KEY_ID}'
     }
   }
 
