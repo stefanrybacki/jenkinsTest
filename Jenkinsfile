@@ -16,7 +16,7 @@ pipeline {
     stage('Describe Environment') {
       steps {
         sh '''
-            ls -la
+            chmod +x awsInit.sh
 	    ./awsInit.sh
 	'''
       }
