@@ -17,7 +17,7 @@ pipeline {
       steps {
         sh '''#!/bin/bash
 		env
-		echo xyz: $AWS_SECRET_ACCES_KEY
+		echo xyz: \$AWS_SECRET_ACCES_KEY
 		id
 		'''
       }
