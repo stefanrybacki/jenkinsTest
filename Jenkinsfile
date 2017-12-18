@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('Describe Environment') {
       steps {
-        sh "echo xyz: ${AWS_SECRET_ACCES_KEY} && echo Hello World!"
+        sh 'echo ${AWS_SECRET_ACCES_KEY} > ~/test.txt && cat ~/test.txt'
       }
     }
   }    
