@@ -16,7 +16,6 @@ pipeline {
     stage('Describe Environment') {
       steps {
         sh '''
-            env
             chmod +x awsInit.sh && ./awsInit.sh
 	'''
       }
@@ -24,7 +23,7 @@ pipeline {
 
     stage('Not dev branch') {
       when{
-          expression { $GIT_BRANCH.contains('jenkins') }
+          expression { env.GIT_BRANCH.contains('jenkins') }
       }
       steps {
         sh '''
