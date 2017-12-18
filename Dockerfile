@@ -97,8 +97,9 @@ RUN useradd -m ci
 
 # configure gradle
 USER ci
-RUN echo "sonar.jdbc.username=sonar" > /home/ci/.gradle/gradle.properties && \
-    echo "sonar.jdbc.password=$SONAR_PASSWORD"
+RUN mkdir -p /home/ci/.gradle && \
+    echo "sonar.jdbc.username=sonar" > /home/ci/.gradle/gradle.properties && \
+    echo "sonar.jdbc.password=$SONAR_PASSWORD" && \
+    cat /home/ci/.gradle/gradle.properties
 USER root
 
-RUN echo $SONAR_PASSWORD && echo $POSTGRES_PASSWORD
