@@ -13,14 +13,14 @@ pipeline {
   }
 
   stages {
+
+    stage('Describe Environment') {
     node {
 	docker.image('postgres').withRun('-e POSTGRES_PASSWORD=postgres') { c ->
       
            /* set user etc */
         }
     }
-
-    stage('Describe Environment') {
       steps {
         sh '''
 		export PGPASSWORD=postgres && psql -h 127.0.0.1 -U ci -d lvmstest -c "SELECT 'success';"
