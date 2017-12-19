@@ -16,20 +16,10 @@ pipeline {
     stage('Describe Environment') {
       steps {
         sh '''
-            chmod +x awsInit.sh && ./awsInit.sh
+		export PGPASSWORD=postgres && psql -h 127.0.0.1 -U ci -d lvmstest -c "SELECT 'success';"
 	'''
       }
     }
 
-    stage('Not dev branch') {
-      when{
-          expression { env.GIT_BRANCH.contains('jenkins') }
-      }
-      steps {
-        sh '''
-           echo condition met
-	'''     
-      }
-    }
   }    
 }

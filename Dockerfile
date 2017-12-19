@@ -98,7 +98,8 @@ RUN aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
     aws configure set aws_access_key_id $AWS_ACCESS_KEY && \
     aws configure set default.region eu-west-1 && \
     aws configure set default.output json 
-# && \
-#    aws s3 ls s3://roland-develop-limbus-medtec-test-filebucket
+
+USER postgres
+CMD ["/usr/lib/postgresql/9.6/bin/postgres", "-D", "/var/lib/postgresql/9.6/main", "-c", "config_file=/etc/postgresql/9.6/main/postgresql.conf"]
 
 
