@@ -13,6 +13,13 @@ pipeline {
   }
 
   stages {
+    node {
+	docker.image('postgres').withRun('-e POSTGRES_PASSWORD=postgres') { c ->
+      
+           /* set user etc */
+        }
+    }
+
     stage('Describe Environment') {
       steps {
         sh '''
