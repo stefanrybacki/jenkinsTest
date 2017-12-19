@@ -12,19 +12,12 @@ pipeline {
     }
   }
 
-    node {
-	docker.image('postgres').withRun('-e POSTGRES_PASSWORD=postgres') { c ->
-      
-           /* set user etc */
-        }
-    }
-
-
   stages {
 
     stage('Describe Environment') {
       steps {
         sh '''
+		sudo -u postgres /etc/init.d/postgres start
 		export PGPASSWORD=postgres && psql -h 127.0.0.1 -U ci -d lvmstest -c "SELECT 'success';"
 	'''
       }
