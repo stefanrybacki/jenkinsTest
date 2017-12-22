@@ -27,6 +27,7 @@ node {
 
 			stage('Additional Setup') {
 				sh '''#!/bin/bash
+					env
 					chmod +x awsInit.sh && ./awsInit.sh
 				'''
 			}
