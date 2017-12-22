@@ -15,8 +15,13 @@ node {
 						gradle -v
 						node -v
 						npm -v
-						export PGPASSWORD=postgres && psql -h postgres -U ci -c "SELECT 'success';"           
 					'''
+					
+					retry(3) {
+						sh '''#!/bin/bash
+							export PGPASSWORD=postgres && psql -h postgres -U ci -c "SELECT 'success';"           
+						'''
+					}
 		  }
 	  }
 }
