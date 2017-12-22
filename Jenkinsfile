@@ -33,7 +33,7 @@ node {
 				}
 				
 				stage('Build') {
-					echo GIT_BRANCH
+					echo BRANCH_NAME
 				}
 			}
 		  }
