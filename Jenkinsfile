@@ -6,7 +6,7 @@ node {
 		AWS_SECRET_ACCESS_KEY = "${env.AWS_ID_PSW}"
 	}
 
-	  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres" -p 3306:3306') { c ->
+	  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
 		  def ciEnv = docker.build 'ci-environment'  
 		  ciEnv.inside("--link ${c.id}:postgres") {
 					sh '''#!/bin/bash
