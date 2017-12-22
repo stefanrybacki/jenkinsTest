@@ -36,6 +36,7 @@ node {
 				}
 				
 				stage('Build') {
+					env
 					echo BRANCH_NAME
 				}
 			}
