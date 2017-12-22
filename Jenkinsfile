@@ -20,6 +20,8 @@ node {
 							node -v
 							npm -v
 							locale
+							update-locale LANG=en_US.UTF8
+							locale
 							exit 1
 						'''
 						
