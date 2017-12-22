@@ -15,6 +15,7 @@ node {
             stage('Additional Configuration') {
                 steps {
                 sh '''#!/bin/bash
+					ls -lha
                     java -version
                     gradle -v
                     node -v
