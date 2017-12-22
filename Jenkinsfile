@@ -1,5 +1,3 @@
-pipeline {
-  
 node {
     checkout scm
     environment {
@@ -26,6 +24,5 @@ node {
             }
         }
     }
-	}
   }
 }
