@@ -9,9 +9,11 @@ node {
 
 	withEnv(["AWS_ACCESS_KEY_ID="+env.AWS_ID_USR,
 	         "AWS_SECRET_ACCESS_KEY="+env.AWS_ID_USR]) {
-		  echo env.toString()
-		  echo AWS_ACCESS_KEY_ID
-		  echo AWS_SECRET_ACCESS_KEY
+	      stage('outside') {
+			echo env.toString()
+			echo AWS_ACCESS_KEY_ID
+			echo AWS_SECRET_ACCESS_KEY
+		  }
 			 
 		  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres" -e "POSTGRES_USER=ci"') { c ->
 				def ciEnv = docker.build 'ci-environment'  
@@ -25,8 +27,8 @@ node {
 							npm -v
 						'''
 						
-						retry(3) {
-							sleep 1
+						retry(10) {
+							sleep 3
 							sh '''#!/bin/bash
 								export PGPASSWORD=postgres && psql -h dbhost -U ci -c "SELECT 'success';"           
 							'''
