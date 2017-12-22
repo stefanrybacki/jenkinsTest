@@ -7,22 +7,16 @@ node {
 	}
 
 	  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
-      def ciEnv = docker.build 'ci-environment'  
-      ciEnv.inside("--link ${c.id}:db") {
-          stages {
-            stage('Additional Configuration') {
-                steps {
-                sh '''#!/bin/bash
-					ls -lha
-                    java -version
-                    gradle -v
-                    node -v
-                    npm -v
-                    export PGPASSWORD=postgres && psql -h 127.0.0.1 -U postgres -c "SELECT 'success';"           
-                '''
-              }
-            }
-        }
-    }
-  }
+		  def ciEnv = docker.build 'ci-environment'  
+		  ciEnv.inside("--link ${c.id}:db") {
+					sh '''#!/bin/bash
+						ls -lha
+						java -version
+						gradle -v
+						node -v
+						npm -v
+						export PGPASSWORD=postgres && psql -h 127.0.0.1 -U postgres -c "SELECT 'success';"           
+					'''
+		  }
+	  }
 }
