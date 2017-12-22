@@ -8,7 +8,7 @@ node {
 
 	  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres" -e "POSTGRES_USER=ci"') { c ->
 		  def ciEnv = docker.build 'ci-environment'  
-		  ciEnv.inside("--link ${c.id}:postgres") {
+		  ciEnv.inside("--link ${c.id}:dbhost") {
 					sh '''#!/bin/bash
 						ls -lha
 						java -version
@@ -19,7 +19,7 @@ node {
 					
 					retry(3) {
 						sh '''#!/bin/bash
-							export PGPASSWORD=postgres && psql -h postgres -U ci -c "SELECT 'success';"           
+							export PGPASSWORD=dbhost && psql -h postgres -U ci -c "SELECT 'success';"           
 						'''
 					}
 		  }
