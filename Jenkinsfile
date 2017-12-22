@@ -21,11 +21,10 @@ node {
 							npm -v
 							locale-gen "en_US.UTF-8"
 							update-locale LANG=en_US.UTF8
-							locale
-							exit 1
 						'''
 						
 						retry(10) {
+							locale
 							sleep 3
 							sh '''#!/bin/bash
 								export PGPASSWORD=$LVMS_DATABASE_PASSWORD && psql -h $SPRING_DATASOURCE_URL -U $LVMS_DATABASE_USERNAME -c "SELECT 'success';"           
