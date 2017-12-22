@@ -15,7 +15,7 @@ USER root
 SHELL ["/bin/bash", "-c"] 
 
 RUN apt-get update && \
-    apt-get install -y zip unzip curl debconf-utils wget locales software-properties-common sudo && \
+    apt-get install -y zip unzip curl debconf-utils wget locales software-properties-common sudo postgresql-client && \
     locale-gen en_US en_US.UTF-8 de_DE de_DE.UTF-8 && \
     dpkg-reconfigure locales
 
