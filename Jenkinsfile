@@ -9,7 +9,7 @@ node {
 	           "LVMS_DATABASE_PASSWORD=$dbPass",
 			   "SPRING_DATASOURCE_URL=$dbHost"
 	  ]) {	
-		  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=$dbPass" -e "POSTGRES_USER=$dbUser"') { c ->
+		  docker.image('postgres').withRun("-e POSTGRES_PASSWORD=$dbPass -e POSTGRES_USER=$dbUser") { c ->
 				def ciEnv = docker.build 'ci-environment'  
 				ciEnv.inside("--link ${c.id}:$dbHost") {
 
