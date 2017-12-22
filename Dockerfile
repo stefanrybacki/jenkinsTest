@@ -77,6 +77,7 @@ RUN aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
     aws configure set default.output json 
 
 RUN locale-gen en_US en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-
+ENV LC_ALL=en_US.UTF-8 
+ENV LANG=en_US.UTF-8
 
 
