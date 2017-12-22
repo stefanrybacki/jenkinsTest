@@ -19,6 +19,8 @@ node {
 							gradle -v
 							node -v
 							npm -v
+							locale
+							exit 1
 						'''
 						
 						retry(10) {
