@@ -11,7 +11,6 @@ node {
 		  ciEnv.inside("--link ${c.id}:dbhost") {
 			stage('Init') {
 					sh '''#!/bin/bash
-						ls -lha
 						java -version
 						gradle -v
 						node -v
@@ -25,6 +24,16 @@ node {
 						'''
 					}
 			}
-		  }
+
+			stage('Additional Setup') {
+				sh '''#!/bin/bash
+					chmod +x awsInit.sh && ./awsInit.sh
+				'''
+			}
+			
+			stage('Build') {
+				echo GIT_BRANCH
+			}
+		}
 	  }
 }
