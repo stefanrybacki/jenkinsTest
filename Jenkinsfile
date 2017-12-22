@@ -29,6 +29,8 @@ node {
 
 			stage('Additional Setup') {
 				sh '''#!/bin/bash
+					export AWS_ACCESS_KEY_ID=${env.AWS_ID_USR}
+					export AWS_SECRET_ACCESS_KEY=${env.AWS_ID_PSW}
 					env
 					chmod +x awsInit.sh && ./awsInit.sh
 				'''
