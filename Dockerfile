@@ -6,7 +6,7 @@ ARG SONAR_PASSWORD=sonar
 ARG AWS_SECRET_KEY=12345
 ARG AWS_ACCESS_KEY=12345
 
-ENV LVMS_DATABASE_USERNAME=ci
+ENV LVMS_DATABASE_USERNAME=postgres
 ENV LVMS_DATABASE_PASSWORD=$POSTGRES_PASSWORD 
 ENV DISPLAY=:99
 ENV PATH="/opt/gradle/gradle-2.12/bin:${PATH}"
@@ -15,24 +15,9 @@ USER root
 SHELL ["/bin/bash", "-c"] 
 
 RUN apt-get update && \
-    apt-get install -y zip unzip curl debconf-utils wget locales software-properties-common sudo libreadline6 && \
+    apt-get install -y zip unzip curl debconf-utils wget locales software-properties-common sudo && \
     locale-gen en_US en_US.UTF-8 de_DE de_DE.UTF-8 && \
     dpkg-reconfigure locales
-
-# install postgreSQL
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list && \
-    wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add - && \
-    apt-get update && \
-    apt-get install -y postgresql-9.6 postgresql-client-9.6
-    
-USER postgres
-RUN /etc/init.d/postgresql start &&\
-    psql -c "CREATE USER ci WITH SUPERUSER PASSWORD '$POSTGRES_PASSWORD'" &&\
-    createdb -O ci lvmtest
-
-USER root
-#RUN PGPASSWORD=$POSTGRES_PASSWORD psql -h 127.0.0.1 -U ci -d lvmtest -c "SELECT 'Connection to postgreSQL successful'"
-
 
 # install EC2 API Tools
 RUN wget http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip && \
@@ -83,23 +68,16 @@ RUN apt-get install -y tabix=1.2.1-2ubuntu1 samtools=0.1.19-1ubuntu1 vcftools=0.
 # install pandoc and imagemagick
 RUN apt-get install -y pandoc imagemagick
 
-# create ci user and configure gradle
-RUN useradd -m ci
-
 # configure gradle
-USER ci
-RUN mkdir -p /home/ci/.gradle && \
-    echo "sonar.jdbc.username=sonar" > /home/ci/.gradle/gradle.properties && \
-    echo "sonar.jdbc.password=$SONAR_PASSWORD"
+RUN mkdir -p ~/.gradle && \
+    echo "sonar.jdbc.username=sonar" > ~/.gradle/gradle.properties && \
+    echo "sonar.jdbc.password=$SONAR_PASSWORD" >> ~/.gradle/gradle.properties
 
 # configure aws
-USER ci
 RUN aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
     aws configure set aws_access_key_id $AWS_ACCESS_KEY && \
     aws configure set default.region eu-west-1 && \
     aws configure set default.output json 
 
-USER postgres
-CMD ["/usr/lib/postgresql/9.6/bin/postgres", "-D", "/var/lib/postgresql/9.6/main", "-c", "config_file=/etc/postgresql/9.6/main/postgresql.conf"]
 
 
