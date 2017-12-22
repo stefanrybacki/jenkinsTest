@@ -76,7 +76,7 @@ RUN aws configure set aws_secret_access_key $AWS_SECRET_KEY && \
     aws configure set default.region eu-west-1 && \
     aws configure set default.output json 
 
-RUN update-locale LANG=en_US.UTF-8
+RUN locale-gen en_US en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 
 
 
