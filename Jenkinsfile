@@ -25,9 +25,9 @@ node {
 						'''
 						
 						retry(10) {
-							locale
 							sleep 3
 							sh '''#!/bin/bash
+								locale
 								export PGPASSWORD=$LVMS_DATABASE_PASSWORD && psql -h $SPRING_DATASOURCE_URL -U $LVMS_DATABASE_USERNAME -c "SELECT 'success';"           
 							'''
 						}
