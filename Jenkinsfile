@@ -19,7 +19,7 @@ node {
 					
 					retry(3) {
 						sh '''#!/bin/bash
-							export PGPASSWORD=dbhost && psql -h postgres -U ci -c "SELECT 'success';"           
+							export PGPASSWORD=postgres && psql -h dbhost -U ci -c "SELECT 'success';"           
 						'''
 					}
 		  }
