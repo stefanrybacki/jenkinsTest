@@ -1,20 +1,21 @@
 node {
+    checkout scm
+
 	environment {
 		AWS_ID = credentials("AWS_ID")
 		AWS_ACCESS_KEY_ID = "${env.AWS_ID_USR}"
 		AWS_SECRET_ACCESS_KEY = "${env.AWS_ID_USR}"
 	}
 	
-    checkout scm
+	  stage('outside') {
+		echo env.AWS_ID_USR
+		echo AWS_ACCESS_KEY_ID
+		echo AWS_SECRET_ACCESS_KEY
+	  }
 
 	withEnv(["AWS_ACCESS_KEY_ID="+env.AWS_ID_USR,
 	         "AWS_SECRET_ACCESS_KEY="+env.AWS_ID_USR]) {
-	      stage('outside') {
-			echo env.AWS_ID_USR
-			echo AWS_ACCESS_KEY_ID
-			echo AWS_SECRET_ACCESS_KEY
-		  }
-			 
+		 
 		  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres" -e "POSTGRES_USER=ci"') { c ->
 				def ciEnv = docker.build 'ci-environment'  
 				ciEnv.inside("--link ${c.id}:dbhost") {
