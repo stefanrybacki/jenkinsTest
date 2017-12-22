@@ -6,7 +6,7 @@ node {
 		AWS_SECRET_ACCESS_KEY = "${env.AWS_ID_PSW}"
 	}
 
-	  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres"') { c ->
+	  docker.image('postgres').withRun('-e "POSTGRES_PASSWORD=postgres" -e "POSTGRES_USER=ci"') { c ->
 		  def ciEnv = docker.build 'ci-environment'  
 		  ciEnv.inside("--link ${c.id}:postgres") {
 					sh '''#!/bin/bash
@@ -15,7 +15,7 @@ node {
 						gradle -v
 						node -v
 						npm -v
-						export PGPASSWORD=postgres && psql -h postgres -U postgres -c "SELECT 'success';"           
+						export PGPASSWORD=postgres && psql -h postgres -U ci -c "SELECT 'success';"           
 					'''
 		  }
 	  }
